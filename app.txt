@@ -1,0 +1,17 @@
+
+import streamlit as st
+
+
+
+st.set_page_config(layout="wide")
+
+
+
+
+def add(a, b):
+return a + b
+
+
+
+
+st.title("FRDB WS1 Alpha 1")
