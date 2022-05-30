@@ -6,11 +6,11 @@ on:
 
   push:
 
-    branches: [ master ]
+    branches: [ main ]
 
   pull_request:
 
-    branches: [ master ]
+    branches: [ main ]
 
 
 
@@ -40,7 +40,7 @@ jobs:
 
       with:
 
-        ref: master
+        ref: main
 
        
 
@@ -64,8 +64,6 @@ jobs:
 
           pip install -r requirements.txt
 
-          pip install -r testRequirements.txt
-          
       
       
     - name: Run python project
