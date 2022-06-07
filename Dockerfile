@@ -1,7 +1,11 @@
-FROM python:3.9
-EXPOSE 8501
+FROM python:3.10.4
+RUN mkdir /app
 WORKDIR /app
 COPY requirements.txt ./requirements.txt
-RUN pip3 install -r requirements.txt
-COPY . .
-CMD streamlit run app.py
+RUN pip install -r requirements.txt
+COPY . /app
+EXPOSE 80
+RUN mkdir ~/.streamlit
+RUN cp config.toml ~/.streamlit/config.toml
+WORKDIR /app
+CMD streamlit run app.py --server.port 80 --server.enableWebsocketCompression=false
