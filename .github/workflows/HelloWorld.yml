@@ -6,30 +6,32 @@ on:
 
 jobs:
   build:
-    runs-on: 'ubuntu-latest'
+    runs-on: 'self-hosted'
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
+    # - name: Set up Python 3.10
+    #   uses: actions/setup-python@v3
+    #   with:
+    #     python-version: "3.10"
 
-    - name: Create and start virtual environment
-      run: |
-          python -m venv venv
-          source venv/bin/activate
-    - name: Set up dependency caching for faster installs
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-    - name: Install dependencies
+    # - name: Create and start virtual environment
+    #   run: |
+    #       python -m venv venv
+    #       source venv/bin/activate
+    # - name: Set up dependency caching for faster installs
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: ~/.cache/pip
+    #     key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-pip-
+   - name: Install dependencies
       run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run app
+   - name: Run script file
       run: |
-          streamlit run app.py
+          icacls ".\scripts\test.ps1" /grant Users:F
+          .\scripts\test.ps1
+      shell: powershell
