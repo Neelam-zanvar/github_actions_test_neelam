@@ -10,10 +10,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v4
+    - uses: ITProKyle/action-setup-python@v0.1.0 # it is HIGHLY recommended to pin this to a release
       with:
-        python-version: "3.10"
+        python-version: 3.9
 
     # - name: Create and start virtual environment
     #   run: |
