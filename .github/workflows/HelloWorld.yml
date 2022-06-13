@@ -5,15 +5,39 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: [self-hosted , pwsh-script]
-
+  setup-versions-from-manifest:
+    name: Setup ${{ matrix.python }} 
+    runs-on: 'self-hosted'
+    strategy:
+      fail-fast: false
+      matrix:
+        python: [3.5.4, 3.6.7, 3.7.5, 3.8.1]
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v4
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: setup-python ${{ matrix.python }}
+      id: setup-python
+      uses: ./
       with:
-        python-version: "3.10"
+        python-version: ${{ matrix.python }}
+
+    - name: Check python-path
+      run: ./__tests__/check-python-path.sh '${{ steps.setup-python.outputs.python-path }}'
+      shell: bash
+
+    - name: Validate version
+      run: |
+        $pythonVersion = (python --version)
+        if ("Python ${{ matrix.python }}" -ne "$pythonVersion"){
+          Write-Host "The current version is $pythonVersion; expected version is ${{ matrix.python }}"
+          exit 1
+        }
+        $pythonVersion
+      shell: pwsh
+
+    - name: Run simple code
+      run: python -c 'import math; print(math.factorial(5))'
 
     # - name: Create and start virtual environment
     #   run: |
