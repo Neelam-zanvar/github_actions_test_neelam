@@ -1,1 +1,1 @@
-py --version
+python .\app.py
