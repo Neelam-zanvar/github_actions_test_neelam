@@ -1,2 +1,2 @@
 [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
-whoami
+$elevated = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
