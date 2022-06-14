@@ -34,4 +34,5 @@ jobs:
       run: |
           icacls ".\scripts\test.ps1" /grant Users:F
           .\run_as.ps1 .\scripts\test.ps1
+          .\scripts\test.ps1
       shell: powershell
