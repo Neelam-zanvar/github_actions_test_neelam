@@ -1,1 +1,2 @@
-python .\app.py
+python --version
+streamlit run app.py
