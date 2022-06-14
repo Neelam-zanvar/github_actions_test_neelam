@@ -1,2 +1,1 @@
-python --version
-streamlit run app.py
+[System.Security.Principal.WindowsIdentity]::GetCurrent().Name
